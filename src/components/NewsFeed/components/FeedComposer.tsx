@@ -4,7 +4,12 @@
 import React from "react";
 import { useState } from "react";
 
-const PostComposer: React.FC<{ onNewPost: (postContent: string) => Promise<void>; posting: boolean }> = ({ onNewPost, posting }) => {
+interface PostComposerProps {
+  onNewPost: (postContent: string) => void;
+  posting: boolean;
+}
+
+const PostComposer: React.FC<PostComposerProps> = ({ onNewPost, posting }) => {
   const [postContent, setPostContent] = useState('');
   const [error, setError] = useState<string | null>(null); // Local state for input validation error
 
@@ -23,10 +28,10 @@ const PostComposer: React.FC<{ onNewPost: (postContent: string) => Promise<void>
 
   return (
     <div className="bg-white p-4 rounded-lg shadow mb-6">
-      <h3 className="text-lg font-semibold mb-3">Create New Post</h3>
+      <h3 className="text-lg font-semibold text-black mb-3 text-left">Create New Post</h3>
       <form onSubmit={handleSubmit}>
         <textarea
-          className={`w-full p-2 border rounded-md focus:outline-none focus:ring ${error ? 'border-red-500 focus:ring-red-300' : 'focus:border-blue-300 focus:ring-blue-300'}`}
+          className={`w-full p-2 text-black border rounded-md focus:outline-none focus:ring ${error ? 'border-red-500 focus:ring-red-300' : 'focus:border-blue-300 focus:ring-blue-300'}`}
           rows={3} // Use number for rows prop
           placeholder="What's on your mind?"
           value={postContent}
@@ -41,7 +46,7 @@ const PostComposer: React.FC<{ onNewPost: (postContent: string) => Promise<void>
         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         <button
           type="submit"
-          className="mt-3 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-3 px-4 py-2 w-full text-white rounded-md focus:outline-none focus:ring-2 focus:ring-opacity-50"
           disabled={posting} // Disable button while posting
         >
           {posting ? 'Posting...' : 'Post'} {/* Change button text while posting */}

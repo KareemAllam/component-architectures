@@ -3,11 +3,13 @@
 
 export interface Post {
   id: number;
-  author: string;
+  createdAt: string;
+  name: string;
+  avatar: string;
   content: string;
-  timestamp: string;
   likes: number;
-  // Add other post properties as needed (e.g., comments)
+  comments: number;
+  shares: number;
 }
 
 export interface FeedState {

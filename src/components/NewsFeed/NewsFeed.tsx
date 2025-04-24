@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useController } from "./controller";
+import { useEffect } from "react";
+import { useController } from "./provider/useController";
 import Feed from "./components/Feed";
-import { ClientStoreProvider } from "./provider";
+import { ClientStoreProvider } from "./provider/provider";
 
 const NewsFeed = () => {
   const { fetchFeedData } = useController(); // Use controller to fetch initial data
@@ -9,24 +9,24 @@ const NewsFeed = () => {
   // Fetch feed data when the component mounts
   useEffect(() => {
     fetchFeedData();
-  }, []); // Include fetchFeedData in dependency array
+  }); // Include fetchFeedData in dependency array
 
   return (
-    <div className="bg-gray-100 min-h-screen font-sans">
-      <header className="bg-blue-600 text-white p-4 shadow-md">
-        <h1 className="text-2xl font-bold text-center">Simple Feed Application</h1>
-      </header>
-      <main>
-        <Feed /> {/* Render the main feed UI */}
-      </main>
+    <div className="flex flex-col gap-4 w-[80%] mx-auto">
+      <div className="bg-yellow-400 text-white rounded-lg">
+        <div className="text-xl font-bold py-2 text-black text-center">Simple Feed Application</div>
+      </div>
+      <Feed />
     </div>
   );
 };
 
-export default () => {
+const NewsFeedWrapper = () => {
   return (
     <ClientStoreProvider>
       <NewsFeed />
     </ClientStoreProvider>
   );
 };
+
+export default NewsFeedWrapper;

@@ -2,7 +2,7 @@
 // Renders the PostComposer and the list of FeedPosts.
 
 import React from "react";
-import { useController } from "../controller.tsx";
+import { useController } from "../provider/useController.tsx";
 import FeedPost from "./FeedPost.tsx";
 import PostComposer from "./FeedComposer.tsx";
 
@@ -11,7 +11,7 @@ const Feed: React.FC = () => {
     = useController(); // Use the controller hook
 
   return (
-    <div className="container mx-auto p-4">
+    <div>
       {/* Pass the posting state to the PostComposer */}
       <PostComposer onNewPost={addNewPost} posting={postingNew} />
 
@@ -27,10 +27,12 @@ const Feed: React.FC = () => {
         <p className="text-center text-gray-600">No posts yet. Be the first to post!</p>
       )}
 
-      {/* Only render posts if not loading the feed and no major error */}
-      {!loadingFeed && !error && posts.map(post => (
-        <FeedPost key={post.id} post={post} onInteraction={handleInteraction} /> // Pass the interaction handler
-      ))}
+      <div className="flex flex-col gap-4">
+        {/* Only render posts if not loading the feed and no major error */}
+        {!loadingFeed && !error && posts.map(post => (
+          <FeedPost key={post.id} post={post} onInteraction={handleInteraction} /> // Pass the interaction handler
+        ))}
+      </div>
     </div>
   );
 };
